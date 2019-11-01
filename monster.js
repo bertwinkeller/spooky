@@ -9,13 +9,17 @@ const connection = mysql.createConnection({
 });
 
 // moster variables
-let randNum = Math.floor(Math.random() * 30) + 20
+
 
 let monsterFighter = ['Frankenstein', 'Werewolf', 'Zombie', 'Mummy', 'Vampire', 'Demon', 'And', 'Alien']
 
 let pullMonster = monsterFighter[Math.floor(Math.random() * 7)]
- 
-let monsterHealth = randNum;
+let monHealth;
+const monsterHealth = _ => {
+  let randNum = Math.floor(Math.random() * 30) + 20
+  monHealth = randNum
+  return monHealth
+}
 
 
 // user variables
@@ -54,7 +58,7 @@ menu()
 
 
 let fightMenu = () => {
-  let monsterHealth = randNum
+  monsterHealth()
 
   inquirer.prompt({
     type: 'confirm',
@@ -62,7 +66,7 @@ let fightMenu = () => {
     message: `
     ------------------------------------------------------------
      Your HP is ${userHp} and score is ${userScore}
-     you are fighting ${pullMonster} with a life total of ${randNum} 
+     you are fighting ${pullMonster} with a life total of ${monHealth} 
      Are you ready to fight?
     -------------------------------------------------------------
     `
@@ -96,24 +100,24 @@ const fightActions = _ => {
   
   let score = 0
   const fight = _ => {
-  let marker = Math.floor((Math.random() * 100) + 1)
-  let damage = Math.floor((Math.random() * 15) + 1)
+  let marker = Math.floor((Math.random() * 99) + 1)
+  let damage = Math.floor((Math.random() * 14) + 1)
   
   
   if(marker >= 50){
       userHp -= damage
       console.log(`Damage taken to user: ${damage}`)
       console.log(`User Health: ${userHp}`)
-      console.log(`Monster Health: ${monsterHealth}`)
+      console.log(`Monster Health: ${monHealth}`)
       userHp <= 0 ? recordMenu() : fightActions()
   
       
   }else{
-      monsterHealth -= damage
+      monHealth -= damage
       console.log(`Damage dealt to monster: ${damage}`)
       console.log(`User Health: ${userHp}`)
-      console.log(`Monster Health: ${monsterHealth}`)
-      monsterHealth <= 0 ? (score += 1, userHp += 20, fightMenu()) : fightActions()
+      console.log(`Monster Health: ${monHealth}`)
+      monHealth <= 0 ? (score += 1, userHp += 20, fightMenu()) : fightActions()
      
   
   }
