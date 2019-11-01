@@ -1,4 +1,3 @@
-# spooky
 # Monster RPG
 
 Your task is to build an rpg game where a user can battle famous spooky monsters for points and rank on a leaderboard.

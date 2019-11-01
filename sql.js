@@ -5,5 +5,13 @@ const connection = mysql.createConnection({
     user: 'root',
     password: 'root',
     database: 'spooky_db'
-  });
+});
+
+connection.execute(
+    'SELECT * FROM `scores`',
+    function (err, id) {
+        console.log(id);
+        process.exit()
+    }
+);
 
