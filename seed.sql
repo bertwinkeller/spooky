@@ -1,3 +1,3 @@
-USE spooky_db
+USE spooky_db;
 INSERT INTO scores (name, score)
-VALUE('Casey', '9001')
+VALUE('Casey', '9001'), ('bert', '8999');
