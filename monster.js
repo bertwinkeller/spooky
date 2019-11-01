@@ -15,7 +15,7 @@ let monsterFighter = ['Frankenstein', 'Werewolf', 'Zombie', 'Mummy', 'Vampire', 
 
 let pullMonster = monsterFighter[Math.floor(Math.random() * 7)]
  
-let monsterHealth;
+let monsterHealth = randNum;
 
 
 // user variables
@@ -35,7 +35,13 @@ let menu = () => {
           fightMenu()
           break
         case 'VIEW LEADERBOARD':
-          view()
+          connection.execute(
+            'SELECT * FROM `scores`',
+            function (err, id) {
+                console.log(id);
+                process.exit()
+            }
+        );
           break
         case 'EXIT':
           process.exit()
@@ -97,12 +103,16 @@ const fightActions = _ => {
   if(marker >= 50){
       userHp -= damage
       console.log(`Damage taken to user: ${damage}`)
+      console.log(`User Health: ${userHp}`)
+      console.log(`Monster Health: ${monsterHealth}`)
       userHp <= 0 ? recordMenu() : fightActions()
   
       
   }else{
       monsterHealth -= damage
       console.log(`Damage dealt to monster: ${damage}`)
+      console.log(`User Health: ${userHp}`)
+      console.log(`Monster Health: ${monsterHealth}`)
       monsterHealth <= 0 ? (score += 1, userHp += 20, fightMenu()) : fightActions()
      
   
@@ -122,8 +132,15 @@ const fightActions = _ => {
           connection.query(`INSERT INTO scores (name, score) VALUES (?, ?)`, [userName, score], (e,data) => {
               if(e){
               console.log(e)
-              } connection.end()
-                  // view()
+              } 
+              connection.execute(
+                'SELECT * FROM `scores`',
+                function (err, id) {
+                    console.log(id);
+                    process.exit()
+                }
+            );
+
       })
   
    })
