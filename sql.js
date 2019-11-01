@@ -6,3 +6,4 @@ const connection = mysql.createConnection({
     password: 'password',
     database: 'spooky_db'
   });
+
