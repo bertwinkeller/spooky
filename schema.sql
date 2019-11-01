@@ -1,3 +1,12 @@
+DROP DATABASE IF EXISTS spooky_db;
+
+CREATE DATABASE spooky_db;
+
 USE spooky_db;
 
-INSERT INTO scores (score)
+CREATE TABLE scores (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL,
+    score VARCHAR(10) NOT NULL,
+    PRIMARY KEY (id)
+);
